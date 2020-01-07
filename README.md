@@ -1,1 +1,2 @@
-# smart-trash
+# Smart Trash
+Identifies and sorts recycling...
