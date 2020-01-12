@@ -1,4 +1,7 @@
 from network import Net
+import torch
+import torchvision
+import torchvision.transforms as transforms
 import torch.nn as nn
 import torch.optim as optim
 
