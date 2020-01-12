@@ -35,9 +35,3 @@ class Net(nn.Module):
         x = F.relu(self.fc5(x))
         m = nn.Softmax(dim=0)
         return m(self.fc(6))
-
-
-if __name__ == '__main__':
-    net = Net()
-    print(net)
-
