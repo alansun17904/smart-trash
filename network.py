@@ -17,7 +17,7 @@ class Net(nn.Module):
         # linear transformation y = mx + b
         self.fc1 = nn.Linear(8 * 52 * 36, 4096)
         self.fc2 = nn.Linear(4096, 1024)
-        self.fc3 = nn.Lieanr(1024, 512)
+        self.fc3 = nn.Linear(1024, 512)
         self.fc4 = nn.Linear(512, 256)
         self.fc5 = nn.Linear(256, 64)
         # 5 classes: landfill, plastic, paper, cans, tetrapack
