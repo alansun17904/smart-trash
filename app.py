@@ -2,10 +2,10 @@ import os
 from flask import render_template, flash, request, redirect, url_for
 from werkzeug.utils import secure_filename
 from config import app
-from models import db, Image
+# from models import db, Image
 
 
-db.create_all()
+# db.create_all()
 
 def allowed_files(filename):
     return '.' in filename and \
@@ -29,7 +29,7 @@ def upload_image():
             i = Image(filename=filename)
             db.session.add(i)
             # call function that runs the neural network
-            # redirect the user 
+            # redirect the user to the result of the network
             return redirect(url_for('upload_image',
                                         filename=filename))
     else:
