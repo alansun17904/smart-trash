@@ -16,10 +16,14 @@ model_urls = {
 # https://arxiv.org/pdf/1409.1556.pdf
 # make each layer a tuple and have 'F' represent frozen layer
 cfgs = {
-    'D': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 'M',
-          512, 512, 512, 'M', 512, 512, 512, 'M'],
-    'E': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 256, 'M',
-          512, 512, 512, 512, 'M', 512, 512, 512, 512, 'M']
+    'D': [(64, 'F'), (64, 'F'), ('M', ''), (128, 'F'), (128, 'F'),
+          ('M', ''), (256, ''), (256, ''), (256, ''), ('M', ''),
+          (512, ''), (512, ''), (512, ''), ('M', ''),
+          (512, ''), (512, ''), (512, ''), ('M', '')],
+    'E': [(64, 'F'), (64, 'F'), ('M', ''), (128, 'F'), (128, 'F'),
+          ('M', ''), (256, 'F'), (256, 'F'), (256, 'F'), (256, 'F'),
+          ('M', ''), (512, ''), (512, ''), (512, ''), (512, ''),
+          ('M', ''), (512, ''), (512, ''), (512, ''), (512, ''), ('M', '')]
 }
 
 
@@ -30,9 +34,11 @@ class VGG(nn.modules):
         self.avgpool = nn.AdaptiveAvgPool2d((7, 7))
         self.classifier = nn.Sequential([
             nn.Linear(512 * 7 * 7, 4096),
-            nn.BatchNorm2d(4096),  # was nn.ReLU()
+            nn.BatchNorm2d(4096),
+            nn.ReLU(inplace=True),
             nn.Linear(4096, 256),
             nn.Dropout(0.6),
+            nn.ReLU(inplace=True)
             nn.Linear(256, 5)
         ])
         if init_weights:
@@ -63,3 +69,23 @@ class VGG(nn.modules):
             elif isinstance(m, nn.Linear):
                 nn.init.normal_(m.weight, 0, 0.01)
                 nn.init.constant_(m.bias, 0)
+
+    @staticmethod
+    def make_layers(cfg, batch_norm=False):
+        layers = []
+        in_channels = 3  # RGB
+        for v in cfg:
+            # (layer type, freeze)
+            if v[0] == 'M':
+                layers += [nn.MaxPool2d(2, 2)]  # kernel size: 2, stride: 2
+            else:
+                conv2d = nn.Conv2d(in_channels, v, kernel_size=3, padding=1)
+                if v[1] == 'F':
+                    conv2d.weight.requires_grad = False
+                    conv2d.bias.requires_grad = False
+                if batch_norm:
+                    layers += [conv2d, nn.BatchNorm2d(v), nn.ReLU(inplace=True)]
+                else:
+                    layers += [conv2d, nn.ReLU(inplace=True)]
+                in_channels = v[0]
+        return nn.Sequential(*layers)
