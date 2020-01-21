@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from .utils import load_state_dict_from_url
+from torch.hub import load_state_dict_from_url
 
 
 model_urls = {
@@ -27,20 +27,20 @@ cfgs = {
 }
 
 
-class VGG(nn.modules):
+class VGG(nn.Module):
     def __init__(self, features, init_weights=True):
         super(VGG, self).__init__()
         self.features = features
         self.avgpool = nn.AdaptiveAvgPool2d((7, 7))
-        self.classifier = nn.Sequential([
+        self.classifier = nn.Sequential(
             nn.Linear(512 * 7 * 7, 4096),
             nn.BatchNorm2d(4096),
             nn.ReLU(inplace=True),
             nn.Linear(4096, 256),
             nn.Dropout(0.6),
-            nn.ReLU(inplace=True)
+            nn.ReLU(inplace=True),
             nn.Linear(256, 5)
-        ])
+        )
         if init_weights:
             self._initialize_weights()
 
@@ -79,13 +79,18 @@ class VGG(nn.modules):
             if v[0] == 'M':
                 layers += [nn.MaxPool2d(2, 2)]  # kernel size: 2, stride: 2
             else:
-                conv2d = nn.Conv2d(in_channels, v, kernel_size=3, padding=1)
+                conv2d = nn.Conv2d(in_channels, v[0], kernel_size=3, padding=1)
                 if v[1] == 'F':
                     conv2d.weight.requires_grad = False
                     conv2d.bias.requires_grad = False
                 if batch_norm:
-                    layers += [conv2d, nn.BatchNorm2d(v), nn.ReLU(inplace=True)]
+                    layers += [conv2d, nn.BatchNorm2d(v[0]), nn.ReLU(inplace=True)]
                 else:
                     layers += [conv2d, nn.ReLU(inplace=True)]
                 in_channels = v[0]
         return nn.Sequential(*layers)
+
+
+if __name__ == '__main__':
+    net = VGG(VGG.make_layers(cfgs['D'], batch_norm=True), init_weights=True)
+    print(net)
