@@ -4,14 +4,6 @@ import torch.nn.functional as F
 from torch.hub import load_state_dict_from_url
 
 
-model_urls = {
-    'vgg16-bn': 'https://download.pytorch.org/models/vgg16_bn-6c64b313.pth',
-    'vgg19-bn': 'https://download.pytorch.org/models/vgg19_bn-c79401a0.pth',
-    'vgg16': 'https://download.pytorch.org/models/vgg16-397923af.pth',
-    'vgg19': 'https://download.pytorch.org/models/vgg19-dcbb9e9d.pth'
-}
-
-
 # configurations from:
 # https://arxiv.org/pdf/1409.1556.pdf
 # make each layer a tuple and have 'F' represent frozen layer
@@ -28,6 +20,12 @@ cfgs = {
 
 
 class VGG(nn.Module):
+    model_urls = {
+        'vgg16-bn': 'https://download.pytorch.org/models/vgg16_bn-6c64b313.pth',
+        'vgg19-bn': 'https://download.pytorch.org/models/vgg19_bn-c79401a0.pth',
+        'vgg16': 'https://download.pytorch.org/models/vgg16-397923af.pth',
+        'vgg19': 'https://download.pytorch.org/models/vgg19-dcbb9e9d.pth'
+    }
     def __init__(self, features, init_weights=True):
         super(VGG, self).__init__()
         self.features = features
@@ -69,6 +67,7 @@ class VGG(nn.Module):
             elif isinstance(m, nn.Linear):
                 nn.init.normal_(m.weight, 0, 0.01)
                 nn.init.constant_(m.bias, 0)
+
 
     @staticmethod
     def make_layers(cfg, batch_norm=False):
