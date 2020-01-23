@@ -1,6 +1,6 @@
 # Stanford Configuration Data
 nets/split-garbage-dataset/
-
+data/split-garbage-dataset/
 
 # Folder Extensions
 *.DS_Store
