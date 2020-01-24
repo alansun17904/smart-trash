@@ -71,6 +71,7 @@ for param in vgg:
     c += 1
 
 
+model.cuda()
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), eps=0.5)
 
