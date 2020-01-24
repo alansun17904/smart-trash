@@ -9,7 +9,6 @@ import torch.optim as optim
 import torchvision
 import torchvision.datasets as datasets
 import torchvision.transforms as transforms
-import matplotlib.pyplot as plt
 
 
 data_dir = 'data/split-garbage-dataset'
@@ -128,3 +127,4 @@ print('Training complete in {:.0f}m {:.0f}s'.format(time_elapsed // 60,
                                                     time_elapsed % 60))
 print('Best val acc: {:4f}'.format(best_acc))
 torch.save(best_model_wts, 'nets/config/recycle_vgg.pth')
+print('Model saved in nets/config/recycle_vgg.pth')
