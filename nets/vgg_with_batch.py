@@ -1,4 +1,3 @@
-import os
 import torch
 import time
 import copy
@@ -6,49 +5,12 @@ import torch.nn as nn
 import numpy as np
 from torchvision import models
 import torch.optim as optim
-import torchvision
-import torchvision.datasets as datasets
-import torchvision.transforms as transforms
+from data_process import data_dir, data_transforms, image_datasets, dataloaders
+from data_process import dataset_sizes, device
 
 
-data_dir = 'data/split-garbage-dataset'
 
-# Data Augmentation and Normalization for Training
-data_transforms = {
-    'train': transforms.Compose([
-        transforms.Resize(224),
-        transforms.RandomResizedCrop(224),
-        transforms.RandomHorizontalFlip(),
-        transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-    ]),
-    'valid': transforms.Compose([
-        transforms.Resize(256),
-        transforms.CenterCrop(224),
-        transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-    ]),
-    'test': transforms.Compose([
-        transforms.Resize(256),
-        transforms.CenterCrop(224),
-        transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-    ])
-}
-
-image_datasets = {x: datasets.ImageFolder(os.path.join(data_dir, x),
-                  transform=data_transforms[x])
-                  for x in ['train', 'test', 'valid']}
-
-dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x], batch_size=32,
-               shuffle=True, num_workers=4) for x in ['train', 'test', 'valid']}
-
-dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'test', 'valid']}
-class_names = image_datasets['train'].classes
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-
-print(dataset_sizes)
-
+# defining classification layers
 model = models.vgg16_bn(pretrained=True)
 model.classifier[6] = nn.Sequential(
                       nn.Linear(4096, 256, bias=True),
@@ -58,7 +20,7 @@ model.classifier[6] = nn.Sequential(
                       nn.Linear(256, 6),
                       nn.Softmax(dim=0))
 
-
+# freezing layers that do not need training
 c = 0
 vgg = next(model.children())
 for param in vgg:
@@ -70,10 +32,14 @@ for param in vgg:
 
     c += 1
 
+# try to load model onto the gpu if the training mode is gpu
+try:
+    model.cuda()
+except AssertionError:
+    pass
 
-model.cuda()
 criterion = nn.CrossEntropyLoss()
-optimizer = optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), eps=0.5)
+optimizer = optim.Adam(filter(lambda p: p.requires_grad, model.parameters()))
 
 since = time.time()
 best_acc = 0.
@@ -118,7 +84,7 @@ for epoch in range(200):
         epoch_acc = correct.double() / dataset_sizes[phase]
         print('{} Loss: {:.4f}, Acc: {:.4f}'.format(phase.title(),
               epoch_loss, epoch_acc))
-
+        
         if phase == 'valid' and epoch_acc > best_acc:
             best_acc = epoch_acc
             best_model_wts = copy.deepcopy(model.state_dict())
