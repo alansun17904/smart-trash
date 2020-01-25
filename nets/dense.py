@@ -22,6 +22,7 @@ print(model.classifier)
 c = 0
 dense = next(model.children())
 for param in dense:
+    print(param)
     c += 1
 
 print(c)
