@@ -5,10 +5,17 @@ import torch.nn as nn
 import numpy as np
 from torchvision import models
 import torch.optim as optim
-from data_process import data_dir, data_transforms, image_datasets, dataloaders
-from data_process import dataset_sizes, device
+from data_process import datasets
 
 
+# operating device
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
+# dataloaders
+dataset = datasets('data/split-garbage-dataset')
+image_datasets = dataset[0]
+dataloaders = dataset[1]
+dataset_sizes = dataset[2]
 
 # defining classification layers
 model = models.vgg16_bn(pretrained=True)

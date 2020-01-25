@@ -26,3 +26,5 @@ model.fc = nn.Sequential(
            nn.Dropout(0.3),
            nn.ReLU(),
            nn.Linear(128, 6))
+
+for name, param in 
