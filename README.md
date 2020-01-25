@@ -4,8 +4,8 @@ Our school (International School of Beijing) recently implemented a recycling sy
 We are currently in the process of data collection. Our goal is to collect around 5,000 images of trash at our school, as there are lots of school specific trash. To supplement this we are also using a database from Mindy Yang and Gary Thung. Using various techniques of data augmentation we were able to generate a sufficient amount of data to train our model.
 
 ## Results
-|          Config File          |   Model  | Dropout | Dense Layers | Epochs | Validation Accuracy |
-|:-----------------------------:|:--------:|:-------:|:------------:|:------:|:-------------------:|
-|  nets/config/recycle_vgg.pth  | VGG16-bn |   0.3   |       2      |   200  |        90.51%       |
-|  nets/config/recycle_vgg1.pth | VGG16-bn |   0.2   |       2      |   200  |        88.87%       |
-| nets/config/recycle_vgg19.pth | VGG19-bn |   0.3   |       2      |   200  |        81.42%       |
+|          Config File          |   Model  | Optimizer | Dropout | Dense Layers | Epochs | Validation Accuracy |
+|:-----------------------------:|:--------:|-----------|:-------:|:------------:|:------:|:-------------------:|
+|  nets/config/recycle_vgg.pth  | VGG16-bn |    Adam   |   0.3   |       2      |   200  |        90.51%       |
+|  nets/config/recycle_vgg1.pth | VGG16-bn |    Adam   |   0.2   |       2      |   200  |        88.87%       |
+| nets/config/recycle_vgg19.pth | VGG19-bn |    Adam   |   0.3   |       2      |   200  |        81.42%       |
