@@ -5,8 +5,7 @@ import torch.nn as nn
 import numpy as np
 from torchvision import models
 import torch.optim as optim
-from data_process import data_dir, data_transforms, image_datasets, dataloaders
-from data_process import dataset_sizes, device
+from data_process import datasets
 
 
 model = models.inception_v3(pretrained=True)
@@ -27,4 +26,7 @@ model.fc = nn.Sequential(
            nn.ReLU(),
            nn.Linear(128, 6))
 
-for name, param in 
+c = 0
+for name, param in model.named_parameters():
+    c += 1
+print(c)

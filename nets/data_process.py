@@ -1,7 +1,7 @@
 import os
 import torch
 import torchvision
-import torchvision.datasets as datasets
+import torchvision.datasets as ds
 import torchvision.transforms as transforms
 
 
@@ -33,12 +33,12 @@ def generate_transforms(data_dir, input_size):
     }
 
 
-def datasets(data_dir, input_size):
-    image_datasets {x: datasets.ImageFolder(os.path.join(data_dir, x),
-                       transform=generate_transforms(data_dir, input_size)[x])
-                       for x in ['train', 'test', 'valid']}
+def datasets(data_dir, input_size, batch_size):
+    image_datasets = {x: ds.ImageFolder(os.path.join(data_dir, x),
+                         transform=generate_transforms(data_dir, input_size)[x])
+                         for x in ['train', 'test', 'valid']}
     dataloaders = {x: torch.utils.data.DataLoader(image_datasets[x],
-                      batch_size=32, shuffle=True, num_workers=4)
+                      batch_size=batch_size, shuffle=True, num_workers=4)
                       for x in ['train', 'test', 'valid']}
     dataset_sizes = {x: len(image_datasets[x])
                         for x in ['train', 'test', 'valid']}
