@@ -11,7 +11,6 @@ def generate_transforms(data_dir, input_size):
         'train': transforms.Compose([
             transforms.Grayscale(3),
             transforms.Resize(300),
-            transforms.RandomRotation(15),
             transforms.RandomResizedCrop(input_size),
             transforms.RandomVerticalFlip(),
             transforms.RandomHorizontalFlip(),

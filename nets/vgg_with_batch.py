@@ -53,10 +53,8 @@ since = time.time()
 best_acc = 0.
 best_model_wts = copy.deepcopy(model.state_dict())
 
-print(model.state_dict())
-
 for epoch in range(200):
-    print(f'Epoch: {epoch + 1}\n{"-" * 10}')
+    print('Epoch: {}{}Best Val: {:.4f}'.format(epoch + 1, '-' * 10, best_acc))
     for phase in ['train', 'valid']:
         if phase == 'train':
             model.train()
@@ -104,4 +102,4 @@ print('Best val acc: {:4f}'.format(best_acc))
 date = datetime.now()
 timestamp = date.strftime('%Y%m%d-%H:%M')
 torch.save(best_model_wts, f'nets/config/recycle_vgg{timestamp}.pth')
-print('Model saved in nets/config/recycle_vgg.pth')
+print(f'Model saved in nets/config/recycle_vgg{timestamp}.pth')
