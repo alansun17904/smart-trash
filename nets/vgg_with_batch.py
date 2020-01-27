@@ -1,5 +1,6 @@
 import torch
 import time
+from datetime import datetime
 import copy
 import torch.nn as nn
 import numpy as np
@@ -23,7 +24,7 @@ model.classifier[6] = nn.Sequential(
                       nn.Linear(4096, 256, bias=True),
                       nn.BatchNorm1d(num_features=256),
                       nn.ReLU(),
-                      nn.Dropout(0.6),
+                      nn.Dropout(0.3),
                       nn.Linear(256, 6),
                       nn.Softmax(dim=0))
 
@@ -100,5 +101,7 @@ time_elapsed = time.time() - since
 print('Training complete in {:.0f}m {:.0f}s'.format(time_elapsed // 60,
                                                     time_elapsed % 60))
 print('Best val acc: {:4f}'.format(best_acc))
-torch.save(best_model_wts, 'nets/config/recycle_vgg.pth')
+date = datetime.now()
+timestamp = date.strftime('%Y%m%d-%H:%M')
+torch.save(best_model_wts, f'nets/config/recycle_vgg{timestamp}.pth')
 print('Model saved in nets/config/recycle_vgg.pth')

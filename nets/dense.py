@@ -20,21 +20,22 @@ def shutdown(model, num):
         c += 1
         if c < threshold:
             param.requires_grad = False
+    print(c)
     return model
 
 # operating device
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-model = models.densenet201(pretrained=True)
+model = models.densenet121(pretrained=True)
 model.classifier = nn.Sequential(
-                      nn.Linear(1920, 256, bias=True),
+                      nn.Linear(1024, 256, bias=True),
                       nn.BatchNorm1d(num_features=256),
                       nn.ReLU(),
                       nn.Dropout(0.6),
                       nn.Linear(256, 6),
                       nn.Softmax(dim=0))
 
-
+shutdown(model, 0)
 dataset = datasets('data/split-garbage-dataset', 224, 32)
 image_datasets = dataset[0]
 dataloaders = dataset[1]

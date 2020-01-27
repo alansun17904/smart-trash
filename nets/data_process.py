@@ -9,14 +9,18 @@ import torchvision.transforms as transforms
 def generate_transforms(data_dir, input_size):
     return {
         'train': transforms.Compose([
+            transforms.Grayscale(3),
             transforms.Resize(300),
+            transforms.RandomRotation(15),
             transforms.RandomResizedCrop(input_size),
+            transforms.RandomVerticalFlip(),
             transforms.RandomHorizontalFlip(),
             transforms.ToTensor(),
             transforms.Normalize([0.485, 0.456, 0.406],
                                  [0.229, 0.224, 0.225])
         ]),
         'valid': transforms.Compose([
+            transforms.Grayscale(3),
             transforms.Resize(300),
             transforms.CenterCrop(input_size),
             transforms.ToTensor(),
@@ -24,6 +28,7 @@ def generate_transforms(data_dir, input_size):
                                  [0.229, 0.224, 0.225])
         ]),
         'test': transforms.Compose([
+            transforms.Grayscale(3),
             transforms.Resize(300),
             transforms.CenterCrop(input_size),
             transforms.ToTensor(),
