@@ -36,26 +36,16 @@ model.classifier[6] = nn.Sequential(
                       nn.Linear(512, 6, bias=True),
                       nn.LogSoftmax(dim=0))
 
-# freezing layers that do not need training
-# c = 0
-# vgg = next(model.children())
-# for param in vgg:
-#     if c <= 39:
-#         if hasattr(param, 'weight') and hasattr(param, 'bias'):
-#             param.weight.requires_grad = False
-#             param.bias.requires_grad = False
-#         param.requires_grad = False
-#
-#     c += 1
+model.load_state_dict(torch.load('recycle_vgg20200128-04:50.pth'))
 
-# try to load model onto the gpu if the training mode is gpu
 try:
     model.cuda()
 except AssertionError:
     pass
 
 criterion = nn.CrossEntropyLoss()
-optimizer = optim.Adam(filter(lambda p: p.requires_grad, model.parameters()))
+optimizer = optim.SGD(filter(lambda p: p.requires_grad, model.parameters()),
+                      lr=0.0001, momentum=0.9, nesterov=True)
 
 since = time.time()
 best_acc = 0.
@@ -109,5 +99,5 @@ print('Training complete in {:.0f}m {:.0f}s'.format(time_elapsed // 60,
 print('Best val acc: {:4f}'.format(best_acc))
 date = datetime.now()
 timestamp = date.strftime('%Y%m%d-%H:%M')
-torch.save(best_model_wts, f'nets/config/recycle_vgg{timestamp}.pth')
-print(f'Model saved in nets/config/recycle_vgg{timestamp}.pth')
+torch.save(best_model_wts, f'nets/config/recycle_vgg_tuned{timestamp}.pth')
+print(f'Model saved in nets/config/recycle_vgg_tuned{timestamp}.pth')
