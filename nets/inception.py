@@ -8,7 +8,21 @@ import torch.optim as optim
 from data_process import datasets
 
 
+# operating device
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
+# dataloaders
+dataset = datasets('data/split-garbage-dataset', 299, 16)
+image_datasets = dataset[0]
+dataloaders = dataset[1]
+dataset_sizes = dataset[2]
+
+# defining classifiction layers
 model = models.inception_v3(pretrained=True)
+
+for param in model.children():
+    param.requires_grad = False # freeze all transfered weights
+
 model.AuxLogits.fc = nn.Sequential(
                      nn.Linear(768, 256, bias=True),
                      nn.BatchNorm1d(256),
@@ -25,8 +39,3 @@ model.fc = nn.Sequential(
            nn.Dropout(0.3),
            nn.ReLU(),
            nn.Linear(128, 6))
-
-c = 0
-for name, param in model.named_parameters():
-    c += 1
-print(c)

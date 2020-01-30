@@ -1,3 +1,10 @@
+"""
+Dense-Net 121
+Transfer learning and minimal adjustment to higher level
+Dense-Net layers. Bad accuracy - 57%
+"""
+
+
 import os
 import torch
 import time

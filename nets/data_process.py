@@ -1,3 +1,9 @@
+"""
+Loads images into dataloaders and performs data augmentation.
+"""
+
+
+
 import os
 import torch
 import torchvision

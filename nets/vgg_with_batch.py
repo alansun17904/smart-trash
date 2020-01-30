@@ -1,3 +1,10 @@
+"""
+VGG16 (Batch Normalization)
+Transfer learning with VGG16 weights, and minimal adjument to the first
+3 layers. This is our best performing model with 93.29% accuracy.
+"""
+
+
 import torch
 import time
 from datetime import datetime

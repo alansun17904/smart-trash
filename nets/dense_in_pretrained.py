@@ -1,3 +1,14 @@
+"""
+Dense-Net 121
+Instead of using the weights directly from trained from ImageNet,
+we used the same architecture as dense net. However, we performed
+'pretraining'. As our dataset is quite different from ImageNet clasess.
+
+Pretraining Epoch -- 10
+!Untested
+"""
+
+
 import os
 import torch
 import time
