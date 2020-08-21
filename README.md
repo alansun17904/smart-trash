@@ -1,12 +1,3 @@
-# Smart Trash
-Our school (International School of Beijing) recently implemented a recycling system replaces the original one trashcan into multiple bins, so that recycling can be processed more efficiently. However, students have a tough time differentiating and identifying which bin their trash should go. Currently, audits have shown that students are only throwing their trash into the correct bin 24% of the time. So we developed a prototype "smart" trashcan that utilizes computer vision to help students sort trash.  
-## Data
-We are currently in the process of data collection. Our goal is to collect around 5,000 images of trash at our school, as there are lots of school specific trash. To supplement this we are also using a database from Mindy Yang and Gary Thung. Using various techniques of data augmentation we were able to generate a sufficient amount of data to train our model.
+# ThanosNet: A Novel Method for Trash Classification Using Metadata
+Recent progress in deep neural networks has spurred significant development of image-based trash classi- fication literature. These methods predominately use transfer learning to achieve state-of-the-art results. In this contribution, a new methodology is introduced that uses metadata fields such as location and time-based traffic intensity to assist existing image-based classifiers. We curated ISBNet, a dataset which contains 889 images and their associated metadata, distributed over 5 classes (paper, plastic, cans, tetra pak, and landfill). This dataset was used to develop our model, ThanosNet, which is superior to current state-of-the-art, image-based, trash classification models. Although ISBNet is localized to one user community, the general methodology developed here is applicable to a wide array of consumer contexts.
 
-## Results
-|          Config File          |   Model  | Optimizer |  Dropout  | Dense Layers | Epochs | Validation Accuracy |
-|:-----------------------------:|:--------:|:---------:|:---------:|:------------:|:------:|:-------------------:|
-| recycle_vgg20200128-04:50.pth | VGG16-bn |    Adam   | 0.25, 0.5 |       3      |   200  |        93.29%       |
-|  nets/config/recycle_vgg.pth  | VGG16-bn |    Adam   |    0.3    |       2      |   200  |        90.51%       |
-|  nets/config/recycle_vgg1.pth | VGG16-bn |    Adam   |    0.2    |       2      |   200  |        88.87%       |
-| nets/config/recycle_vgg19.pth | VGG19-bn |    Adam   |    0.3    |       2      |   200  |        81.42%       |
