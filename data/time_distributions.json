@@ -1,0 +1,100 @@
+{
+	"entrance_exit": {
+		"dist1": {
+			"type": "normal",
+			"mean": 0.1,
+			"stdev": 0.05
+		},
+		"dist2": {
+			"type": "normal",
+			"mean": 0.8,
+			"stdev": 0.05
+		}
+	},
+	"bathroom": {
+		"dist1": {
+			"type": "uniform",
+			"mag": 1
+		}
+	},
+	"couch_area": {
+		"dist1": {
+			"type": "normal",
+			"mean": 0.4,
+			"stdev": 0.1
+		},
+		"dist2": {
+			"type": "normal",
+			"mean": 0.8,
+			"stdev": 0.05
+		}
+	},
+	"stairwell": {
+		"dist1": {
+			"type": "uniform",
+			"mag": 1
+		}
+	},
+	"printer": {
+		"dist1": {
+			"type": "uniform",
+			"mag": 1
+		}
+	},
+	"cafeteria": {
+		"dist1": {
+			"type": "normal",
+			"mean": 0.4,
+			"stdev": 0.1
+		},
+		"dist2": {
+			"type": "normal",
+			"mean": 0.8,
+			"stdev": 0.05
+		}
+	},
+	"library": {
+		"dist1": {
+			"type": "uniform",
+			"mag": 1
+		}
+	},
+	"lounge": {
+		"dist1": {
+			"type": "normal",
+			"mean": 0.2,
+			"stdev": 0.05
+		},
+		"dist2": {
+			"type": "normal",
+			"mean": 0.4,
+			"stdev": 0.1
+		}
+	},
+	"gym": {
+		"dist1": {
+			"type": "normal",
+			"mean": 0.6,
+			"stdev": 0.05
+		},
+		"dist2": {
+			"type": "normal",
+			"mean": 0.8,
+			"stdev": 0.05
+		}
+	},
+	"pool": {
+		"dist1": {
+			"type": "normal",
+			"mean": 1,
+			"stdev": 0.15
+		}
+	},
+	"theater": {
+		"dist1": {
+			"type": "normal",
+			"mean": 0.5,
+			"stdev": 0.025
+		}
+	}
+}

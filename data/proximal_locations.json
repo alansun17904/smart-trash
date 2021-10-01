@@ -1,0 +1,73 @@
+{
+    "1A": [
+        "entrance_exit", "bathroom", "couch_area", "stairwell", "printer"
+    ],
+    "2A": [
+        "entrance_exit", "bathroom", "couch_area", "stairwell", "printer", "lounge"
+    ],
+    "3A": [
+        "entrance_exit", "bathroom", "couch_area", "stairwell"
+    ],
+    "8A": [
+        "cafeteria", "stairwell", "bathroom", "library", "printer", "lounge"
+    ],
+    "9A": [
+        "theater", "printer", "stairwell", "bathroom", "library"
+    ],
+    "10A": [
+        "entrance_exit", "theater", "gym", "pool", "printer"
+    ],
+    "11A": [
+        "entrance_exit", "theater", "gym", "stairwell"
+    ],
+    "12A": [
+        "library", "printer", "cafeteria"
+    ],
+    "1B": [
+        "bathroom", "couch_area", "stairwell", "printer", "lounge"
+    ],
+    "2B": [
+        "bathroom", "couch_area", "stairwell", "printer", "lounge"
+    ],
+    "3B": [
+        "printer", "gym", "stairwell", "bathroom", "theater", "couch_area"
+    ],
+    "4B": [
+        "printer", "gym", "stairwell", "bathroom", "couch_area"
+    ],
+    "5B": [
+        "bathroom", "stairwell", "couch_area", "printer", "cafeteria"
+    ],
+    "6B": [
+        "bathroom", "stairwell", "couch_area"
+    ],
+    "key": {
+        "theater": 0,
+        "printer": 1,
+        "stairwell": 2,
+        "bathroom": 3,
+        "library": 4,
+        "couch_area": 5,
+        "cafeteria": 6,
+        "gym": 7,
+        "entrance_exit": 8,
+        "lounge": 9,
+        "pool": 10
+    },
+    "distances": {
+        "1A": [12.922, 6.878, 13.431, 16.539, 23.289],
+        "2A": [12.049, 7.249, 12.780, 15.090, 22.307, 32.243],
+        "3A": [12.695, 6.772, 12.947, 15.957],
+        "8A": [36.480, 7.784, 16.509, 32.606, 41.311, 34.028],
+        "9A": [25.299, 8.210, 10.327, 19.218, 28.100],
+        "10A": [6.839, 23.106, 25.253, 63.180, 35.012],
+        "11A": [24.084, 16.339, 40.248, 20.775],
+        "12A": [15.482, 3.622, 63.776],
+        "1B": [3.374, 13.729, 13.250, 9.990, 10.278],
+        "2B": [18.963, 7.675, 23.193, 11.991, 23.396],
+        "3B": [2.964, 27.310, 8.740, 17.958, 45.253, 59.078],
+        "4B": [3.174, 26.494, 9.134, 18.230, 59.644],
+        "5B": [7.908, 17.063, 13.577, 13.461, 12.064],
+        "6B": [7.457, 16.552, 12.815]
+    }
+}
