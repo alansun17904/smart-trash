@@ -6,6 +6,7 @@ import inference
 import datetime
 from config import app
 from models import db, Image
+#from models import db, Image, Grade
 from werkzeug.utils import secure_filename
 from flask import render_template, flash, request, redirect, url_for, Flask, send_from_directory
 
@@ -30,7 +31,8 @@ def dropdown():
 @app.route('/', methods=['GET', 'POST'])
 def upload_image():
     locations = ["1A","2A","3A", "4A", "5A", "6A", "7A", "8A","9A","10A","11A",
-                    "12A","1B","2B","3B","4B","5B","6B", "7B", "8B"]
+                    "12A","1B","2B","3B","4B","5B","6B", "7B", "8B", "9B","10B",
+                 "11B", "12B", "13B", "14B","15B", "1C", "2C", "1G", "2G", "3G", "4G"]
     if request.method == 'POST':
         location = request.form.get('location')
 
@@ -54,6 +56,7 @@ def upload_image():
 
             # redirect the user to the result of the network
             db.session.add(Image(filepath=filepath, location=location, label=label))
+            #db.session.add(Image(filepath=filepath, location=location, label=label, name="Steve", grade=Grade.SENIOR))
 
             db.session.commit()
             return result(label)
@@ -76,3 +79,7 @@ def download_file(filename):
 @app.route('/', methods=['GET'])
 def result(classified):
     return render_template("result.html", result=classified)
+
+
+if __name__ == '__main__':
+    app.run()

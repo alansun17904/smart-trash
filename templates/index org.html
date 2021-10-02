@@ -7,27 +7,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>Recyclops</title>
 </head>
-<body style="background-color:#90EE90;padding-top: 2em; margin-right:10%; margin-right:10%">
+<body style="padding-top: 2em; margin-right:10%; margin-right:10%">
+	<h1>Recyclops – Running ThanosNet v1.0</h1>
+	<form method=post enctype=multipart/form-data>
+    <input type=file name=file>
+    <select name=location>
+    	{% for location in locations %}
+    		<option value="{{location}}">{{ location }}</option>"
+    	{% endfor %}
+    </select>
+    <input type=submit value=Upload>
+  </form>
+  <div class="maps" style="margin-top: 2em;">
+  <h3>Trash Cans and Their Corresponding IDs</h3>
+  <p>Please note that if your trash can is not depicted in the following maps, then choose the closest labelled trash can. The accuracy of the prediction is increased when images are taken against a dark/black background.</p>
+  <img src="{{ url_for('static', filename='first_floor.jpg') }}" alt="ISB First Floor Blue Prints" width=65%%/>
+  <img src="{{ url_for('static', filename='second_floor.jpg') }}" alt="ISB Second Floor Blue Prints" width=65%/>
+</div>
 
-	<h1>Recyclops – Collected Data</h1>
-  <table id="datatable" style="width:100%">
-    <tr>
-      <th>Id</th>
-      <th>Filepath</th>
-      <th>Date</th>
-      <th>Location</th>
-      <th>Predicted Label</th>
-    </tr>
-  {% for image in data %}
-    <tr>
-      <th class="id">{{ image.id }}</th>
-      <th class="filepath"><a href="{{ url_for('download_file', filename=image.filepath) }}">{{ image.filepath }}</a></th>
-      <th class="date">{{ image.date }}</th>
-      <th class="location">{{ image.location }}</th>
-      <th class="label">{{ image.label }}</th>
-    </tr>
-  {% endfor %}
-  </table>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
